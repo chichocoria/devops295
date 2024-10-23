@@ -140,8 +140,9 @@ cd /etc/apache2/mods-enabled/
 cp dir.conf dir.conf.bak
 sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' dir.conf
 
-#Reemplazar la ip por localhost en el archivo index.php
+#Enviar la password como argumento al correr el script.
 sed -i 's/172.20.1.101/localhost/g' /var/www/html/index.php
+sed -i 's/$dbPassword = "";/$dbPassword = "'$1'";/g' /var/www/html/config.php
 
 
 ##########Validar si la URL da code 200 OK#################
