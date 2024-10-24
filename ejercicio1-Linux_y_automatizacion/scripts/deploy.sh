@@ -174,7 +174,10 @@ http_code1=$(curl -s -o /dev/null -w "%{http_code}" $url1)
 if [ $http_code1 -eq 200 ]; then
     echo -e "${Green}La URL Devops Travel está OK (código 200).${Color_Off}"
     success
-    source /root/discord.sh /root/Exercise1-Linux-Automation-Bootcamp2023
+    cd /root/Exercise1-Linux-Automation-Bootcamp2023/scripts/
+    chmod +x discord.sh
+    ./discord.sh
+    source /root/Exercise1-Linux-Automation-Bootcamp2023/scripts/discord.sh /root/Exercise1-Linux-Automation-Bootcamp2023
 else
     echo -e "${Green}La URL $url1 retornó un código de respuesta diferente de 200: $http_code1 ${Color_Off}"
 fi
