@@ -176,7 +176,7 @@ if [ $http_code1 -eq 200 ]; then
     echo -e "${Green}La URL Devops Travel está OK (código 200).${Color_Off}"
     success
     cd ~/devops295/ejercicio1-Linux_y_automatizacion/scripts
-    source discord.sh /root/devops295
+    source discord.sh /root/devops295 /root/devops295
     echo -e "${Green}La URL $url1 retornó un código de respuesta diferente de 200: $http_code1 ${Color_Off}"
 fi
 ##############################################################
