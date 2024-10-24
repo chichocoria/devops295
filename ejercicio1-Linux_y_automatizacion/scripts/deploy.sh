@@ -141,7 +141,7 @@ cp dir.conf dir.conf.bak
 sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' dir.conf
 
 #Enviar la password como argumento al correr el script.
-sed -i 's/172.20.1.101/localhost/g' /var/www/html/index.php
+#ejemplo: ./script.sh db_password
 sed -i 's/$dbPassword = "";/$dbPassword = "'$1'";/g' /var/www/html/config.php
 
 
