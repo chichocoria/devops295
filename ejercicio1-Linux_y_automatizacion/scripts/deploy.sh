@@ -3,7 +3,8 @@
 #Probado en ubuntu 22.04 LTS
 
 # Variables
-repo="Exercise1-Linux-Automation-Bootcamp2023"
+repo="devops295"
+directory="ejercicio1-Linux_y_automatizacion"
 USERID=$(id -u)
 
 # Colores
@@ -133,7 +134,7 @@ fi
 # Copiar el contenido de la carpeta a /var/www/html
 echo -e "${Green}Copiando contenido de la carpeta $repo a /var/www/html{Color_Off}"
 cd /root
-cp -r $repo/* /var/www/html
+cp -r $repo/$directory/* /var/www/html
 
 # Configurar apache para que soporte extensión php
 cd /etc/apache2/mods-enabled/
@@ -168,21 +169,14 @@ systemctl restart apache2
 url1="localhost"
 
 # Realizar la solicitud HTTP y almacenar el código de respuesta en una variable
-http_code1=$(curl -s -o /dev/null -w "%{http_code}" $url1)
+http_code1=$(curl -o /dev/null -s -w "%{http_code}" $url1)
 
 # Verificar si el código de respuesta es 200 (OK)
 if [ $http_code1 -eq 200 ]; then
     echo -e "${Green}La URL Devops Travel está OK (código 200).${Color_Off}"
     success
-    cd /root/Exercise1-Linux-Automation-Bootcamp2023/scripts/
-    chmod +x discord.sh
-    ./discord.sh
-    source /root/Exercise1-Linux-Automation-Bootcamp2023/scripts/discord.sh /root/Exercise1-Linux-Automation-Bootcamp2023
-else
+    cd ~/devops295/ejercicio1-Linux_y_automatizacion/scripts
+    source discord.sh /root/devops295
     echo -e "${Green}La URL $url1 retornó un código de respuesta diferente de 200: $http_code1 ${Color_Off}"
 fi
 ##############################################################
-
-
-
-
