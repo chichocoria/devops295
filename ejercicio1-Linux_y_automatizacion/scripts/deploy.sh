@@ -1,6 +1,9 @@
-#/bin/bash
+#!/bin/bash
 #Autor:Ruben Dario Coria
 #Probado en ubuntu 22.04 LTS
+# el script se corre como sudo y se le pasa el parametro de la password de la DB ejemplo: 'sudo ./deploy.sh pass_db'
+
+
 
 # Variables
 repo="devops295"
@@ -113,7 +116,7 @@ fi
 echo -e "${Green}===============BUILD======================${Color_Off}"
 
 # Verificar si existe el repositorio bootcamp-devops-2023
-cd /root
+cd /root/
 if [ -d "$repo" ]; then
     echo -e "${Green}La carpeta $repo existe ...${Color_Off}"
     echo -e "${Green}Corriendo gitpull para traer cambios...${Color_Off}"
@@ -123,7 +126,7 @@ else
     # Clonar el repositorio
     echo -e "${Green}instalando WEB ...${Color_Off}}"
     sleep 1
-    cd /root
+    cd /root/
     git clone https://github.com/chichocoria/$repo.git
 fi
 
@@ -133,7 +136,7 @@ fi
 #git checkout clase2-linux-bash
 # Copiar el contenido de la carpeta a /var/www/html
 echo -e "${Green}Copiando contenido de la carpeta $repo a /var/www/html{Color_Off}"
-cd /root
+cd /root/
 cp -r $repo/$directory/* /var/www/html
 
 # Configurar apache para que soporte extensión php
@@ -143,7 +146,7 @@ sed -i 's/DirectoryIndex index.html/DirectoryIndex index.php index.html/g' dir.c
 
 #Enviar la password como argumento al correr el script.
 #ejemplo: ./script.sh db_password
-sed -i 's/$dbPassword = "";/$dbPassword = "'$1'";/g' /var/www/html/config.php
+sed -i 's/$dbPassword = "";/$dbPassword = "'$0'";/g' /var/www/html/config.php
 
 
 ##########Validar si la URL da code 200 OK#################
@@ -175,8 +178,10 @@ http_code1=$(curl -o /dev/null -s -w "%{http_code}" $url1)
 if [ $http_code1 -eq 200 ]; then
     echo -e "${Green}La URL Devops Travel está OK (código 200).${Color_Off}"
     success
-    cd ~/devops295/ejercicio1-Linux_y_automatizacion/scripts
-    source discord.sh /root/devops295 /root/devops295
+    #corremos el script discord.sh y pasamos dos parametros el path del script y 
+    #luego el del directorio del repositorio, para mas info ver el file discord.sh
+    sudo bash -c 'source /home/darioc/devops295/ejercicio1-Linux_y_automatizacion/scripts/discord.sh /root/devops295'
+else
     echo -e "${Green}La URL $url1 retornó un código de respuesta diferente de 200: $http_code1 ${Color_Off}"
 fi
 ##############################################################
